@@ -23,8 +23,29 @@ variable "public_network" {
 }
 variable "dns_nameservers" {
   type    = list(string)
-  default = []
+  default = ["10.172.1.100"]
 }
+
+variable "clouds_yaml_file" {
+    type = string
+    default = "/etc/openstack/clouds.yaml"
+}
+
+variable "keepalived_mac_address" {
+    type = string
+    default = "00:00:5e:00:01:32"
+}
+
+variable "keepalived_ip_address" {
+    type = string
+    default = "192.168.0.10/32"
+}
+
+variable "os_cloud_name" {
+    type = string
+    default = "admin-public"
+}
+
 variable "ssh" {
   type = map(string)
   default = {

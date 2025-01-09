@@ -27,6 +27,7 @@ data "openstack_networking_network_v2" "public" {
 resource "openstack_networking_router_v2" "generic" {
   name                = "${var.identifier}-router"
   external_network_id = data.openstack_networking_network_v2.public.id
+  distributed = true
 }
 
 #### APP NETWORK ####
@@ -59,6 +60,7 @@ resource "openstack_networking_router_interface_v2" "lcm" {
 resource "openstack_networking_router_v2" "backend" {
   name                = "${var.identifier}-backend-router"
   external_network_id = data.openstack_networking_network_v2.public.id
+  distributed = true
 }
 
 resource "openstack_networking_network_v2" "backend" {

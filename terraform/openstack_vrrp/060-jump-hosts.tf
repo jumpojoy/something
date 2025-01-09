@@ -55,6 +55,11 @@ resource "openstack_networking_port_v2" "jump" {
 resource "openstack_networking_floatingip_v2" "jump" {
   for_each   = var.jump_instance_names
   pool       = var.public_network
-  port_id    = openstack_networking_port_v2.jump[each.value].id
+}
+
+resource "openstack_networking_floatingip_associate_v2" "jump" {
+  for_each   = var.jump_instance_names
+  floating_ip    = openstack_networking_floatingip_v2.jump[each.value].address
+  port_id = openstack_networking_port_v2.jump[each.value].id
   depends_on = [openstack_networking_router_interface_v2.lcm]
 }
